@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>刘嘉怡 · 个人简历 | 医学实验技术</title>
+<meta name="description" content="刘嘉怡,河南中医药大学医学院医学实验技术专业 2026 届,求职医学实验技术员/科研助理。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+/* ============ 基础与变量 ============ */
+:root{
+  --bg:#0a0f1e;
+  --bg-2:#13102b;
+  --card:rgba(255,255,255,.04);
+  --card-bd:rgba(255,255,255,.09);
+  --txt:#e8ecf5;
+  --txt-dim:#9aa3b8;
+  --mint:#5eead4;
+  --teal:#14b8a6;
+  --pink:#fb7185;
+  --rose:#f43f5e;
+  --purple:#a78bfa;
+  --violet:#8b5cf6;
+  --amber:#fbbf24;
+  --grad:linear-gradient(135deg,#5eead4 0%,#a78bfa 50%,#fb7185 100%);
+  --grad-soft:linear-gradient(135deg,rgba(94,234,212,.15),rgba(167,139,250,.15),rgba(251,113,133,.15));
+  --shadow:0 20px 60px -15px rgba(0,0,0,.6);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:80px}
+body{
+  font-family:'Poppins','Noto Sans SC',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  background:var(--bg);
+  color:var(--txt);
+  line-height:1.7;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+/* 全局背景光晕 */
+body::before{
+  content:'';
+  position:fixed;inset:0;z-index:-2;
+  background:
+    radial-gradient(60vw 60vw at 15% 10%,rgba(94,234,212,.18),transparent 60%),
+    radial-gradient(55vw 55vw at 90% 20%,rgba(167,139,250,.18),transparent 60%),
+    radial-gradient(50vw 50vw at 50% 100%,rgba(251,113,133,.15),transparent 60%),
+    linear-gradient(180deg,var(--bg) 0%,var(--bg-2) 100%);
+}
+/* 粒子画布 */
+#particles{position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.7}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+
+/* ============ 导航 ============ */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:18px 6vw;
+  background:rgba(10,15,30,.65);
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+  border-bottom:1px solid rgba(255,255,255,.06);
+  transition:padding .3s;
+}
+.nav.scrolled{padding:12px 6vw}
+.brand{display:flex;align-items:center;gap:12px;font-weight:800;letter-spacing:.5px}
+.brand .logo{
+  width:38px;height:38px;border-radius:11px;
+  background:var(--grad);
+  display:grid;place-items:center;font-size:18px;color:#0a0f1e;font-weight:900;
+  box-shadow:0 8px 24px -6px rgba(94,234,212,.5);
+}
+.brand span{background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.nav-links{display:flex;gap:6px;list-style:none}
+.nav-links a{
+  padding:8px 14px;border-radius:10px;font-size:14px;color:var(--txt-dim);
+  transition:.25s;position:relative;
+}
+.nav-links a:hover{color:var(--txt);background:rgba(255,255,255,.05)}
+.nav-toggle{display:none;background:none;border:none;color:var(--txt);font-size:24px;cursor:pointer}
+
+/* ============ 通用 ============ */
+section{padding:110px 6vw;position:relative}
+.container{max-width:1180px;margin:0 auto}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:13px;letter-spacing:2px;text-transform:uppercase;
+  color:var(--mint);font-weight:600;margin-bottom:16px;
+}
+.eyebrow::before{content:'';width:30px;height:2px;background:var(--grad);border-radius:2px}
+.sec-title{
+  font-size:clamp(30px,4.5vw,52px);font-weight:800;line-height:1.15;margin-bottom:14px;
+  letter-spacing:-.5px;
+}
+.sec-title em{font-style:normal;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.sec-sub{color:var(--txt-dim);max-width:640px;margin-bottom:50px;font-size:16px}
+
+/* 滚动渐显 */
+.reveal{opacity:0;transform:translateY(40px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1)}
+.reveal.in{opacity:1;transform:none}
+.reveal.d1{transition-delay:.1s}.reveal.d2{transition-delay:.2s}.reveal.d3{transition-delay:.3s}.reveal.d4{transition-delay:.4s}
+
+/* ============ Hero ============ */
+.hero{
+  min-height:100vh;display:flex;align-items:center;
+  padding:120px 6vw 60px;position:relative;overflow:hidden;
+}
+.hero-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:60px;align-items:center;width:100%;max-width:1180px;margin:0 auto}
+.hero-tag{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:7px 14px;border-radius:999px;
+  background:var(--grad-soft);border:1px solid var(--card-bd);
+  font-size:13px;color:var(--mint);margin-bottom:24px;
+}
+.hero-tag .dot{width:8px;height:8px;border-radius:50%;background:var(--mint);box-shadow:0 0 12px var(--mint);animation:pulse 1.8s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.hero h1{
+  font-size:clamp(48px,8vw,96px);font-weight:900;line-height:1;letter-spacing:-2px;margin-bottom:8px;
+}
+.hero h1 .name{background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;display:inline-block}
+.hero h2{
+  font-size:clamp(18px,2.2vw,26px);font-weight:400;color:var(--txt-dim);margin-bottom:28px;
+}
+.hero h2 b{color:var(--mint);font-weight:600}
+.hero h2 .sep{margin:0 10px;color:rgba(255,255,255,.2)}
+.hero-desc{
+  font-size:17px;color:var(--txt-dim);max-width:520px;margin-bottom:36px;line-height:1.8;
+}
+.hero-cta{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:40px}
+.btn{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:14px 26px;border-radius:14px;font-weight:600;font-size:15px;cursor:pointer;
+  transition:.25s;border:none;
+}
+.btn-primary{background:var(--grad);color:#0a0f1e;box-shadow:0 12px 30px -8px rgba(94,234,212,.45)}
+.btn-primary:hover{transform:translateY(-3px);box-shadow:0 18px 40px -8px rgba(94,234,212,.6)}
+.btn-ghost{background:rgba(255,255,255,.05);color:var(--txt);border:1px solid var(--card-bd)}
+.btn-ghost:hover{background:rgba(255,255,255,.1);transform:translateY(-3px)}
+.hero-meta{display:flex;gap:30px;flex-wrap:wrap;padding-top:30px;border-top:1px solid var(--card-bd)}
+.hero-meta .item .num{font-size:30px;font-weight:800;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.hero-meta .item .lbl{font-size:13px;color:var(--txt-dim)}
+
+/* 头像区 */
+.avatar-wrap{position:relative;display:flex;justify-content:center;align-items:center}
+.avatar-blob{
+  position:absolute;inset:-30px;
+  background:var(--grad);
+  border-radius:42% 58% 70% 30% / 45% 50% 50% 55%;
+  filter:blur(40px);opacity:.5;
+  animation:morph 12s ease-in-out infinite;
+}
+@keyframes morph{
+  0%,100%{border-radius:42% 58% 70% 30% / 45% 50% 50% 55%;transform:rotate(0deg)}
+  50%{border-radius:60% 40% 35% 65% / 55% 45% 55% 45%;transform:rotate(180deg)}
+}
+.avatar{
+  position:relative;width:340px;height:340px;
+  border-radius:42% 58% 70% 30% / 45% 50% 50% 55%;
+  background:var(--grad-soft);
+  border:2px solid var(--card-bd);
+  display:grid;place-items:center;
+  overflow:hidden;
+  animation:morph 12s ease-in-out infinite;
+  box-shadow:var(--shadow);
+}
+.avatar .ph{
+  text-align:center;color:var(--txt-dim);
+}
+.avatar .ph .letter{font-size:120px;font-weight:900;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;line-height:1}
+.avatar .ph .hint{font-size:13px;margin-top:8px}
+.deco-ring{
+  position:absolute;border:1.5px dashed rgba(94,234,212,.3);border-radius:50%;
+  animation:spin 30s linear infinite;
+}
+.deco-ring.r1{width:420px;height:420px;top:-40px}
+.deco-ring.r2{width:480px;height:480px;top:-70px;animation-direction:reverse;animation-duration:45s;border-color:rgba(251,113,133,.2)}
+@keyframes spin{to{transform:rotate(360deg)}}
+.float-badge{
+  position:absolute;padding:10px 14px;border-radius:12px;
+  background:rgba(19,16,43,.85);backdrop-filter:blur(10px);
+  border:1px solid var(--card-bd);font-size:13px;font-weight:600;
+  display:flex;align-items:center;gap:8px;
+  animation:float 5s ease-in-out infinite;
+}
+.float-badge .ico{width:8px;height:8px;border-radius:50%}
+.float-badge.b1{top:10%;left:-5%;color:var(--mint)}.float-badge.b1 .ico{background:var(--mint);box-shadow:0 0 10px var(--mint)}
+.float-badge.b2{bottom:15%;right:-8%;color:var(--pink);animation-delay:1.5s}.float-badge.b2 .ico{background:var(--pink);box-shadow:0 0 10px var(--pink)}
+.float-badge.b3{bottom:40%;left:-12%;color:var(--purple);animation-delay:3s}.float-badge.b3 .ico{background:var(--purple);box-shadow:0 0 10px var(--purple)}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+
+/* ============ 关于 ============ */
+.about-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:50px;align-items:start}
+.about-text p{color:var(--txt-dim);margin-bottom:18px;font-size:16px}
+.about-text p b{color:var(--txt)}
+.info-card{
+  background:var(--card);border:1px solid var(--card-bd);
+  border-radius:20px;padding:30px;backdrop-filter:blur(10px);
+}
+.info-card h4{font-size:13px;letter-spacing:2px;text-transform:uppercase;color:var(--mint);margin-bottom:18px}
+.info-row{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px dashed var(--card-bd);font-size:14px}
+.info-row:last-child{border:none}
+.info-row .k{color:var(--txt-dim)}
+.info-row .v{color:var(--txt);font-weight:500;text-align:right}
+
+/* ============ 教育 ============ */
+.edu-card{
+  display:grid;grid-template-columns:auto 1fr;gap:30px;align-items:start;
+  background:var(--grad-soft);
+  border:1px solid var(--card-bd);
+  border-radius:24px;padding:40px;position:relative;overflow:hidden;
+}
+.edu-card::before{
+  content:'';position:absolute;right:-50px;top:-50px;
+  width:200px;height:200px;border-radius:50%;
+  background:var(--grad);filter:blur(60px);opacity:.25;
+}
+.edu-logo{
+  width:90px;height:90px;border-radius:22px;
+  background:var(--grad);display:grid;place-items:center;
+  font-size:42px;color:#0a0f1e;font-weight:900;
+  box-shadow:0 12px 30px -8px rgba(94,234,212,.5);
+}
+.edu-body h3{font-size:24px;font-weight:700;margin-bottom:6px}
+.edu-body .meta{color:var(--mint);font-size:14px;margin-bottom:14px;font-weight:500}
+.edu-body .meta .sep{margin:0 10px;color:rgba(255,255,255,.2)}
+.edu-body p{color:var(--txt-dim);max-width:680px}
+.edu-tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
+.edu-tags span{font-size:12px;padding:5px 12px;border-radius:999px;background:rgba(255,255,255,.06);border:1px solid var(--card-bd);color:var(--txt-dim)}
+
+/* ============ 技能 ============ */
+.skills-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
+.skill{
+  background:var(--card);border:1px solid var(--card-bd);
+  border-radius:18px;padding:24px;transition:.3s;position:relative;overflow:hidden;
+}
+.skill:hover{transform:translateY(-4px);border-color:rgba(94,234,212,.3);box-shadow:0 16px 40px -15px rgba(94,234,212,.3)}
+.skill .head{display:flex;align-items:center;gap:14px;margin-bottom:16px}
+.skill .ico{
+  width:44px;height:44px;border-radius:12px;display:grid;place-items:center;font-size:22px;
+  background:var(--grad-soft);
+}
+.skill h4{font-size:16px;font-weight:600}
+.skill .lvl{font-size:12px;color:var(--mint);margin-top:2px}
+.bar{height:8px;background:rgba(255,255,255,.06);border-radius:999px;overflow:hidden;position:relative}
+.bar i{
+  display:block;height:100%;border-radius:999px;
+  background:var(--grad);
+  width:0;transition:width 1.2s cubic-bezier(.2,.7,.2,1);
+  position:relative;
+}
+.bar i::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.5),transparent);
+  animation:shimmer 2s infinite;
+}
+@keyframes shimmer{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
+.skill .note{font-size:12px;color:var(--txt-dim);margin-top:10px}
+.skill .note .tag{
+  display:inline-block;font-size:10px;padding:2px 8px;border-radius:6px;
+  background:rgba(251,191,36,.15);color:var(--amber);margin-left:6px;
+  border:1px solid rgba(251,191,36,.3);
+}
+
+/* ============ 证书荣誉 ============ */
+.honor-wall{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:20px}
+.honor-card{
+  aspect-ratio:3/4;border-radius:18px;
+  background:var(--grad-soft);
+  border:2px dashed var(--card-bd);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;
+  color:var(--txt-dim);transition:.3s;cursor:pointer;text-align:center;padding:20px;
+}
+.honor-card:hover{border-color:var(--mint);color:var(--mint);transform:translateY(-4px) scale(1.02)}
+.honor-card svg{width:40px;height:40px;opacity:.6}
+.honor-card .t{font-size:14px;font-weight:600;color:var(--txt)}
+.honor-card .s{font-size:12px}
+.honor-card.filled{background-size:cover;background-position:center;border-style:solid}
+.honor-card.filled::after{
+  content:'证书';position:absolute;bottom:0;left:0;right:0;
+  background:linear-gradient(transparent,rgba(0,0,0,.85));
+  padding:20px 12px 12px;font-size:13px;font-weight:600;color:#fff;
+}
+.honor-card.filled .ico,.honor-card.filled .t,.honor-card.filled .s{display:none}
+.honor-card{position:relative;overflow:hidden}
+
+/* ============ 照片墙 ============ */
+.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;grid-auto-rows:200px}
+.gallery .g{
+  border-radius:18px;overflow:hidden;position:relative;
+  background:var(--grad-soft);border:2px dashed var(--card-bd);
+  display:grid;place-items:center;color:var(--txt-dim);font-size:13px;text-align:center;
+  transition:.3s;
+}
+.gallery .g:hover{border-color:var(--pink);transform:scale(1.02)}
+.gallery .g svg{width:34px;height:34px;opacity:.5;margin-bottom:6px}
+.gallery .g.tall{grid-row:span 2}
+.gallery .g.wide{grid-column:span 2}
+.gallery .g.filled{border-style:solid;background-size:cover;background-position:center}
+.gallery .g.filled::after{
+  content:attr(data-cap);position:absolute;inset:0;
+  background:linear-gradient(transparent 60%,rgba(0,0,0,.8));
+  display:flex;align-items:flex-end;padding:14px;font-size:13px;color:#fff;font-weight:600;
+  opacity:0;transition:.3s;
+}
+.gallery .g.filled:hover::after{opacity:1}
+.gallery .g.filled svg{display:none}
+
+/* ============ 联系 ============ */
+.contact-wrap{
+  background:var(--grad-soft);
+  border:1px solid var(--card-bd);
+  border-radius:28px;padding:50px;position:relative;overflow:hidden;
+}
+.contact-wrap::before{
+  content:'';position:absolute;left:-100px;bottom:-100px;
+  width:300px;height:300px;border-radius:50%;
+  background:var(--grad);filter:blur(80px);opacity:.2;
+}
+.contact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;position:relative}
+.contact-card{
+  display:flex;align-items:center;gap:16px;padding:22px;border-radius:18px;
+  background:rgba(19,16,43,.6);border:1px solid var(--card-bd);
+  transition:.3s;
+}
+.contact-card:hover{transform:translateY(-4px);border-color:var(--mint);box-shadow:0 16px 40px -15px rgba(94,234,212,.3)}
+.contact-card .ico{
+  width:48px;height:48px;border-radius:14px;flex-shrink:0;
+  display:grid;place-items:center;font-size:22px;
+}
+.contact-card .k{font-size:12px;color:var(--txt-dim);margin-bottom:2px}
+.contact-card .v{font-size:15px;font-weight:600;word-break:break-all}
+
+/* ============ 页脚 ============ */
+footer{
+  padding:40px 6vw;text-align:center;color:var(--txt-dim);font-size:13px;
+  border-top:1px solid var(--card-bd);
+}
+footer .up{margin-bottom:10px}
+footer a{color:var(--mint)}
+
+/* ============ 响应式 ============ */
+@media (max-width:900px){
+  .nav-links{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;background:rgba(10,15,30,.95);padding:20px 6vw;gap:4px;border-bottom:1px solid var(--card-bd)}
+  .nav-links.open{display:flex}
+  .nav-links a{padding:12px 14px}
+  .nav-toggle{display:block}
+  .hero-grid,.about-grid{grid-template-columns:1fr;gap:50px}
+  .avatar{width:260px;height:260px}
+  .avatar .ph .letter{font-size:90px}
+  .deco-ring.r1{width:330px;height:330px}
+  .deco-ring.r2{width:380px;height:380px}
+  .skills-grid{grid-template-columns:1fr}
+  .edu-card{grid-template-columns:1fr;gap:20px;padding:30px}
+  .gallery .g.wide{grid-column:span 1}
+  section{padding:80px 6vw}
+  .contact-wrap{padding:30px}
+}
+</style>
+</head>
+<body>
+
+<canvas id="particles"></canvas>
+
+<!-- ============ 导航 ============ -->
+<nav class="nav" id="nav">
+  <a href="#home" class="brand">
+    <span class="logo">L</span>
+    <span>刘嘉怡</span>
+  </a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#home">首页</a></li>
+    <li><a href="#about">关于</a></li>
+    <li><a href="#education">教育</a></li>
+    <li><a href="#skills">技能</a></li>
+    <li><a href="#honors">荣誉</a></li>
+    <li><a href="#gallery">风采</a></li>
+    <li><a href="#contact">联系</a></li>
+  </ul>
+  <button class="nav-toggle" id="navToggle" aria-label="菜单">☰</button>
+</nav>
+
+<!-- ============ Hero ============ -->
+<section class="hero" id="home">
+  <div class="hero-grid">
+    <div class="hero-left">
+      <span class="hero-tag reveal"><span class="dot"></span> 求职中 · 医学实验技术</span>
+      <h1 class="reveal d1">你好,我是<br><span class="name">刘嘉怡</span></h1>
+      <h2 class="reveal d2"><b>医学实验技术</b> <span class="sep">/</span> 2026 届 <span class="sep">/</span> 河南中医药大学</h2>
+      <p class="hero-desc reveal d3">
+        在生命与数据的交汇处探索真理。熟练实验操作、文献综述与 AI 辅助研究,
+        以严谨态度对待每一次实验,以开放心态拥抱技术变革。
+      </p>
+      <div class="hero-cta reveal d3">
+        <a href="#contact" class="btn btn-primary">联系我 →</a>
+        <a href="#skills" class="btn btn-ghost">查看技能</a>
+      </div>
+      <div class="hero-meta reveal d4">
+        <div class="item"><div class="num">2026</div><div class="lbl">毕业届别</div></div>
+        <div class="item"><div class="num">5+</div><div class="lbl">AI 证书</div></div>
+        <div class="item"><div class="num">中英</div><div class="lbl">文献阅读</div></div>
+      </div>
+    </div>
+    <div class="avatar-wrap reveal d2">
+      <div class="deco-ring r1"></div>
+      <div class="deco-ring r2"></div>
+      <div class="avatar-blob"></div>
+      <div class="avatar" id="avatar">
+        <div class="ph">
+          <div class="letter">刘</div>
+          <div class="hint">头像待上传</div>
+        </div>
+      </div>
+      <div class="float-badge b1"><span class="ico"></span> AI 证书持证</div>
+      <div class="float-badge b2"><span class="ico"></span> 文献综述</div>
+      <div class="float-badge b3"><span class="ico"></span> Office 精通</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 关于 ============ -->
+<section id="about">
+  <div class="container">
+    <div class="eyebrow reveal">About Me</div>
+    <h2 class="sec-title reveal d1">关于<em>我</em></h2>
+    <p class="sec-sub reveal d1">一名热爱生命科学、善于借助技术放大效率的医学实验技术专业学生。</p>
+    <div class="about-grid">
+      <div class="about-text reveal d2">
+        <p>我是 <b>刘嘉怡</b>,就读于 <b>河南中医药大学医学院</b>医学实验技术专业,2026 届毕业生。专业训练让我熟悉各类医学实验流程与规范,也让我理解"严谨"二字在生命科学中的分量。</p>
+        <p>课业之外,我持续打磨两类能力:一是 <b>学术素养</b>——独立检索中英文文献、提炼要点、撰写综述;二是 <b>技术工具</b>——精通 Office 全家桶,并系统学习 AI 技术,已考取多项 AI 技能证书,能将 AI 嵌入到文献调研、数据处理、实验报告的每个环节。</p>
+        <p>我相信,医学实验的下半场不只靠移液枪,更要靠数据思维与工具运用。希望加入一支注重实证、乐于创新的团队,把所学转化为真实价值。</p>
+      </div>
+      <div class="info-card reveal d3">
+        <h4>关键信息</h4>
+        <div class="info-row"><span class="k">姓名</span><span class="v">刘嘉怡</span></div>
+        <div class="info-row"><span class="k">毕业届别</span><span class="v">2026 届</span></div>
+        <div class="info-row"><span class="k">院校</span><span class="v">河南中医药大学</span></div>
+        <div class="info-row"><span class="k">学院</span><span class="v">医学院</span></div>
+        <div class="info-row"><span class="k">专业</span><span class="v">医学实验技术</span></div>
+        <div class="info-row"><span class="k">求职意向</span><span class="v">医学实验技术员 / 科研助理</span></div>
+        <div class="info-row"><span class="k">语言</span><span class="v">中文(母语) · 英文文献阅读</span></div>
+        <div class="info-row"><span class="k">所在地</span><span class="v">河南郑州</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 教育 ============ -->
+<section id="education">
+  <div class="container">
+    <div class="eyebrow reveal">Education</div>
+    <h2 class="sec-title reveal d1">教育<em>背景</em></h2>
+    <p class="sec-sub reveal d1">本科四年系统训练,理论与实验并重。</p>
+    <div class="edu-card reveal d2">
+      <div class="edu-logo">医</div>
+      <div class="edu-body">
+        <h3>河南中医药大学 · 医学院</h3>
+        <div class="meta">医学实验技术 <span class="sep">|</span> 本科 <span class="sep">|</span> 2022 — 2026</div>
+        <p>系统学习基础医学、实验技术原理与操作,涵盖分子生物学、细胞生物学、免疫学、病原学等领域的实验方法,具备独立完成常规医学实验项目的能力。</p>
+        <div class="edu-tags">
+          <span>分子生物学实验</span>
+          <span>细胞培养</span>
+          <span>免疫学技术</span>
+          <span>病原检测</span>
+          <span>实验统计</span>
+          <span>实验室规范</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 技能 ============ -->
+<section id="skills">
+  <div class="container">
+    <div class="eyebrow reveal">Skills</div>
+    <h2 class="sec-title reveal d1">专业<em>技能</em></h2>
+    <p class="sec-sub reveal d1">已确认的能力为实测掌握,标注"专业相关"的为根据专业培养方案补充,可按实际掌握程度调整。</p>
+    <div class="skills-grid">
+
+      <div class="skill reveal d1">
+        <div class="head">
+          <div class="ico">📊</div>
+          <div><h4>Office 办公套件</h4><div class="lvl">精通 · 95%</div></div>
+        </div>
+        <div class="bar"><i data-w="95"></i></div>
+        <div class="note">Word 长文档排版 · Excel 数据透视 · PowerPoint 汇报演示</div>
+      </div>
+
+      <div class="skill reveal d2">
+        <div class="head">
+          <div class="ico">🤖</div>
+          <div><h4>AI 技术应用</h4><div class="lvl">熟练 · 90%</div></div>
+        </div>
+        <div class="bar"><i data-w="90"></i></div>
+        <div class="note">提示词工程 · AI 辅助文献调研与数据处理 · 持有多项 AI 证书</div>
+      </div>
+
+      <div class="skill reveal d3">
+        <div class="head">
+          <div class="ico">📚</div>
+          <div><h4>学术文献检索与综述</h4><div class="lvl">熟练 · 88%</div></div>
+        </div>
+        <div class="bar"><i data-w="88"></i></div>
+        <div class="note">PubMed / 知网 / Web of Science · 综述结构化撰写</div>
+      </div>
+
+      <div class="skill reveal d4">
+        <div class="head">
+          <div class="ico">🌐</div>
+          <div><h4>英文文献阅读</h4><div class="lvl">熟练 · 85%</div></div>
+        </div>
+        <div class="bar"><i data-w="85"></i></div>
+        <div class="note">独立阅读英文原文 · 提炼方法与结论</div>
+      </div>
+
+      <div class="skill reveal d1">
+        <div class="head">
+          <div class="ico">🧬</div>
+          <div><h4>分子生物学实验</h4><div class="lvl">掌握 · 80%</div></div>
+        </div>
+        <div class="bar"><i data-w="80"></i></div>
+        <div class="note">PCR · Western Blot · 凝胶电泳 · 核酸提取<span class="tag">专业相关</span></div>
+      </div>
+
+      <div class="skill reveal d2">
+        <div class="head">
+          <div class="ico">🧫</div>
+          <div><h4>细胞与免疫实验</h4><div class="lvl">掌握 · 75%</div></div>
+        </div>
+        <div class="bar"><i data-w="75"></i></div>
+        <div class="note">细胞培养 · ELISA · 流式样本前处理<span class="tag">专业相关</span></div>
+      </div>
+
+      <div class="skill reveal d3">
+        <div class="head">
+          <div class="ico">📈</div>
+          <div><h4>实验数据统计</h4><div class="lvl">掌握 · 78%</div></div>
+        </div>
+        <div class="bar"><i data-w="78"></i></div>
+        <div class="note">SPSS · GraphPad Prism · 基础统计检验<span class="tag">专业相关</span></div>
+      </div>
+
+      <div class="skill reveal d4">
+        <div class="head">
+          <div class="ico">🔬</div>
+          <div><h4>实验室规范与仪器</h4><div class="lvl">掌握 · 82%</div></div>
+        </div>
+        <div class="bar"><i data-w="82"></i></div>
+        <div class="note">移液器 · 离心机 · 显微镜 · 生物安全规范<span class="tag">专业相关</span></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ 荣誉证书 ============ -->
+<section id="honors">
+  <div class="container">
+    <div class="eyebrow reveal">Honors</div>
+    <h2 class="sec-title reveal d1">荣誉<em>证书</em></h2>
+    <p class="sec-sub reveal d1">AI 技能证书与其他荣誉。点击占位卡片可替换为真实证书照片。</p>
+    <div class="honor-wall" id="honorWall">
+
+      <div class="honor-card reveal d1" data-ph>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2l2.5 5 5.5.8-4 3.9.9 5.5L12 19.5 7.1 22l.9-5.5-4-3.9 5.5-.8z"/></svg>
+        <div class="t">AI 技能证书 ①</div>
+        <div class="s">点击上传照片</div>
+      </div>
+      <div class="honor-card reveal d2" data-ph>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2l2.5 5 5.5.8-4 3.9.9 5.5L12 19.5 7.1 22l.9-5.5-4-3.9 5.5-.8z"/></svg>
+        <div class="t">AI 技能证书 ②</div>
+        <div class="s">点击上传照片</div>
+      </div>
+      <div class="honor-card reveal d3" data-ph>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2l2.5 5 5.5.8-4 3.9.9 5.5L12 19.5 7.1 22l.9-5.5-4-3.9 5.5-.8z"/></svg>
+        <div class="t">AI 技能证书 ③</div>
+        <div class="s">点击上传照片</div>
+      </div>
+      <div class="honor-card reveal d4" data-ph>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2l2.5 5 5.5.8-4 3.9.9 5.5L12 19.5 7.1 22l.9-5.5-4-3.9 5.5-.8z"/></svg>
+        <div class="t">更多荣誉</div>
+        <div class="s">点击上传照片</div>
+      </div>
+      <div class="honor-card reveal d1" data-ph>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="5"/><path d="M3 21v-2a7 7 0 0114 0v2"/></svg>
+        <div class="t">学业奖学金</div>
+        <div class="s">点击上传照片</div>
+      </div>
+      <div class="honor-card reveal d2" data-ph>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 7l9-4 9 4-9 4-9-4zm0 5l9 4 9-4M3 17l9 4 9-4"/></svg>
+        <div class="t">其他证书</div>
+        <div class="s">点击上传照片</div>
+      </div>
+
+    </div>
+    <p style="margin-top:24px;color:var(--txt-dim);font-size:13px">说明:此处为预留照片墙,后续将你的证书照片放入同目录 <code>images/</code> 文件夹即可自动展示。</p>
+  </div>
+</section>
+
+<!-- ============ 个人风采 ============ -->
+<section id="gallery">
+  <div class="container">
+    <div class="eyebrow reveal">Gallery</div>
+    <h2 class="sec-title reveal d1">个人<em>风采</em></h2>
+    <p class="sec-sub reveal d1">实验瞬间、校园生活、个人照片。占位区已为你预留。</p>
+    <div class="gallery" id="galleryWall">
+      <div class="g tall reveal d1" data-ph data-cap="头像照片">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="5"/><path d="M3 21v-2a7 7 0 0114 0v2"/></svg>
+        <div>头像 / 证件照</div>
+      </div>
+      <div class="g wide reveal d2" data-ph data-cap="实验工作照">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 3v6L4 20a2 2 0 002 2h12a2 2 0 002-2l-5-11V3M9 3h6M9 3a3 3 0 006 0"/></svg>
+        <div>实验工作照</div>
+      </div>
+      <div class="g reveal d3" data-ph data-cap="校园生活">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+        <div>校园生活</div>
+      </div>
+      <div class="g reveal d4" data-ph data-cap="生活照">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+        <div>生活照</div>
+      </div>
+      <div class="g wide reveal d1" data-ph data-cap="活动合影">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8zm14 10v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+        <div>活动合影</div>
+      </div>
+      <div class="g reveal d2" data-ph data-cap="更多照片">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 5v14M5 12h14"/></svg>
+        <div>更多照片</div>
+      </div>
+    </div>
+    <p style="margin-top:24px;color:var(--txt-dim);font-size:13px">说明:将照片放入 <code>images/</code> 文件夹后,在对应卡片上设置背景图即可显示。</p>
+  </div>
+</section>
+
+<!-- ============ 联系 ============ -->
+<section id="contact">
+  <div class="container">
+    <div class="eyebrow reveal">Contact</div>
+    <h2 class="sec-title reveal d1">联系<em>我</em></h2>
+    <p class="sec-sub reveal d1">期待与志同道合的团队相遇。以下方式均可直接触达我。</p>
+    <div class="contact-wrap reveal d2">
+      <div class="contact-grid">
+        <a class="contact-card" href="tel:19561880317">
+          <div class="ico" style="background:rgba(94,234,212,.18);color:var(--mint)">📞</div>
+          <div><div class="k">电话</div><div class="v">19561880317</div></div>
+        </a>
+        <div class="contact-card">
+          <div class="ico" style="background:rgba(251,113,133,.18);color:var(--pink)">💬</div>
+          <div><div class="k">微信</div><div class="v">Cloud1104Liu_1</div></div>
+        </div>
+        <a class="contact-card" href="mailto:1582444042@qq.com">
+          <div class="ico" style="background:rgba(167,139,250,.18);color:var(--purple)">✉️</div>
+          <div><div class="k">邮箱</div><div class="v">1582444042@qq.com</div></div>
+        </a>
+        <a class="contact-card" href="https://github.com/Cloud1104" target="_blank" rel="noopener">
+          <div class="ico" style="background:rgba(251,191,36,.18);color:var(--amber)">🐙</div>
+          <div><div class="k">GitHub</div><div class="v">Cloud1104</div></div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="up">© 2026 刘嘉怡 · 河南中医药大学医学院 · 医学实验技术</div>
+  <div>Built with care · <a href="#home">回到顶部 ↑</a></div>
+</footer>
+
+<script>
+/* ============ 粒子背景(分子节点风)============ */
+(function(){
+  const c=document.getElementById('particles');
+  const ctx=c.getContext('2d');
+  let W,H,particles;
+  function resize(){
+    W=c.width=window.innerWidth;
+    H=c.height=window.innerHeight;
+    const n=Math.min(80,Math.floor(W*H/22000));
+    particles=Array.from({length:n},()=>({
+      x:Math.random()*W,y:Math.random()*H,
+      vx:(Math.random()-.5)*.4,vy:(Math.random()-.5)*.4,
+      r:Math.random()*2+.8,
+      hue:[165,270,345][Math.floor(Math.random()*3)]
+    }));
+  }
+  function tick(){
+    ctx.clearRect(0,0,W,H);
+    // 连线
+    for(let i=0;i<particles.length;i++){
+      for(let j=i+1;j<particles.length;j++){
+        const a=particles[i],b=particles[j];
+        const dx=a.x-b.x,dy=a.y-b.y,d=Math.hypot(dx,dy);
+        if(d<130){
+          ctx.strokeStyle=`hsla(${a.hue},80%,65%,${(1-d/130)*.25})`;
+          ctx.lineWidth=.6;
+          ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke();
+        }
+      }
+    }
+    // 节点
+    particles.forEach(p=>{
+      p.x+=p.vx;p.y+=p.vy;
+      if(p.x<0||p.x>W)p.vx*=-1;
+      if(p.y<0||p.y>H)p.vy*=-1;
+      ctx.fillStyle=`hsla(${p.hue},80%,65%,.7)`;
+      ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fill();
+    });
+    requestAnimationFrame(tick);
+  }
+  resize();tick();
+  window.addEventListener('resize',resize);
+})();
+
+/* ============ 滚动渐显 ============ */
+const io=new IntersectionObserver(es=>{
+  es.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add('in');
+      // 技能进度条触发
+      e.target.querySelectorAll?.('.bar i[data-w]').forEach(b=>{
+        b.style.width=b.dataset.w+'%';
+      });
+      io.unobserve(e.target);
+    }
+  });
+},{threshold:.15});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+/* ============ 导航 ============ */
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>{
+  nav.classList.toggle('scrolled',window.scrollY>30);
+});
+const toggle=document.getElementById('navToggle');
+const links=document.getElementById('navLinks');
+toggle.addEventListener('click',()=>links.classList.toggle('open'));
+links.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>links.classList.remove('open')));
+
+/* ============ 占位卡片:提示上传 ============ */
+document.querySelectorAll('[data-ph]').forEach(card=>{
+  card.addEventListener('click',()=>{
+    alert('此处为照片占位。\n\n上传方法:\n1. 在网站同目录下创建 images 文件夹\n2. 将照片放入其中\n3. 编辑 index.html,给该卡片加上 style="background-image:url(\'images/你的照片.jpg\')" 和 class "filled"');
+  });
+});
+</script>
+</body>
+</html>
