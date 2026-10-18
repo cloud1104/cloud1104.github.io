@@ -361,6 +361,52 @@ footer a{color:#0d9488}
   section{padding:80px 6vw}
   .contact-wrap{padding:30px}
 }
+
+/* ============ 自定义光标 & 点击烟花 ============ */
+@media (hover:hover) and (pointer:fine){
+  body, a, button, .honor-card, .photo-item, .g{cursor:none}
+  .cursor-dot{
+    position:fixed;top:0;left:0;width:8px;height:8px;border-radius:50%;
+    background:#0d9488;pointer-events:none;z-index:10000;
+    transform:translate(-50%,-50%);transition:width .2s,height .2s,background .2s;
+  }
+  .cursor-ring{
+    position:fixed;top:0;left:0;width:34px;height:34px;border-radius:50%;
+    border:1.5px solid rgba(13,148,136,.6);pointer-events:none;z-index:10000;
+    transform:translate(-50%,-50%);
+    transition:width .25s,height .25s,border-color .25s,background .25s;
+  }
+  .cursor-hover .cursor-ring{
+    width:52px;height:52px;background:rgba(20,184,166,.08);border-color:rgba(13,148,136,.9);
+  }
+}
+/* 触屏设备隐藏自定义光标 */
+.cursor-dot,.cursor-ring{display:none;opacity:0}
+@media (hover:hover) and (pointer:fine){
+  .cursor-dot,.cursor-ring{display:block}
+}
+/* 点击烟花粒子 */
+.fx-spark{
+  position:fixed;width:5px;height:5px;margin:-2.5px 0 0 -2.5px;border-radius:2px;
+  pointer-events:none;z-index:10001;
+  animation:fxSpark .65s cubic-bezier(.15,.75,.35,1) forwards;
+}
+@keyframes fxSpark{
+  0%{transform:translate(0,0) rotate(0deg) scaleY(1);opacity:1}
+  70%{opacity:1}
+  100%{transform:translate(var(--tx),var(--ty)) rotate(var(--rot)) scaleY(.4);opacity:0}
+}
+/* 烟花最外侧的包围圆环 */
+.fx-ring{
+  position:fixed;width:18px;height:18px;margin:-9px 0 0 -9px;border-radius:50%;
+  border:2px solid #0d9488;box-shadow:0 0 12px rgba(13,148,136,.5);
+  pointer-events:none;z-index:10001;
+  animation:fxRing .6s cubic-bezier(.2,.7,.3,1) forwards;
+}
+@keyframes fxRing{
+  0%{transform:scale(.4);opacity:1}
+  100%{transform:scale(5.5);opacity:0}
+}
 </style>
 </head>
 <body>
@@ -749,6 +795,75 @@ document.querySelectorAll('[data-ph]').forEach(card=>{
     alert('此处为照片占位。\n\n上传方法:\n1. 在网站同目录下创建 images 文件夹\n2. 将照片放入其中\n3. 编辑 index.html,给该卡片加上 style="background-image:url(\'images/你的照片.jpg\')" 和 class "filled"');
   });
 });
+</script>
+
+<!-- 自定义光标 -->
+<div class="cursor-dot"></div>
+<div class="cursor-ring"></div>
+
+<script>
+/* ============ 自定义光标跟随 & 点击烟花 ============ */
+(function(){
+  const dot=document.querySelector('.cursor-dot');
+  const ring=document.querySelector('.cursor-ring');
+  const fine=window.matchMedia('(hover:hover) and (pointer:fine)').matches;
+  if(!fine) return;
+
+  let mx=innerWidth/2,my=innerHeight/2;   // 鼠标位置
+  let rx=mx,ry=my;                        // 圆环当前位置(延迟跟随)
+
+  document.addEventListener('mousemove',e=>{
+    mx=e.clientX;my=e.clientY;
+    dot.style.left=mx+'px';dot.style.top=my+'px';
+    dot.style.opacity=1;ring.style.opacity=1;
+  });
+  document.addEventListener('mouseleave',()=>{dot.style.opacity=0;ring.style.opacity=0});
+
+  // 圆环弹性延迟跟随
+  (function follow(){
+    rx+=(mx-rx)*.16;ry+=(my-ry)*.16;
+    ring.style.left=rx+'px';ring.style.top=ry+'px';
+    requestAnimationFrame(follow);
+  })();
+
+  // 悬停可点击元素时圆环放大
+  document.addEventListener('mouseover',e=>{
+    if(e.target.closest('a,button,.honor-card,.photo-item,.g,.skill,input,textarea'))
+      document.body.classList.add('cursor-hover');
+  });
+  document.addEventListener('mouseout',e=>{
+    if(e.target.closest('a,button,.honor-card,.photo-item,.g,.skill,input,textarea'))
+      document.body.classList.remove('cursor-hover');
+  });
+
+  // 点击烟花:放射粒子 + 最外侧包围圆环
+  const colors=['#0d9488','#14b8a6','#2dd4bf','#5eead4'];
+  document.addEventListener('click',e=>{
+    const x=e.clientX,y=e.clientY;
+    // 包围圆环
+    const ringEl=document.createElement('div');
+    ringEl.className='fx-ring';
+    ringEl.style.left=x+'px';ringEl.style.top=y+'px';
+    ringEl.style.borderColor=colors[Math.floor(Math.random()*colors.length)];
+    document.body.appendChild(ringEl);
+    setTimeout(()=>ringEl.remove(),650);
+    // 放射粒子(烟花线)
+    const n=16;
+    for(let i=0;i<n;i++){
+      const s=document.createElement('span');
+      s.className='fx-spark';
+      const ang=(Math.PI*2*i)/n+Math.random()*.35;
+      const dist=34+Math.random()*30;
+      s.style.setProperty('--tx',Math.cos(ang)*dist+'px');
+      s.style.setProperty('--ty',Math.sin(ang)*dist+'px');
+      s.style.setProperty('--rot',(ang*180/Math.PI+90)+'deg');
+      s.style.left=x+'px';s.style.top=y+'px';
+      s.style.background=colors[Math.floor(Math.random()*colors.length)];
+      document.body.appendChild(s);
+      setTimeout(()=>s.remove(),700);
+    }
+  });
+})();
 </script>
 </body>
 </html>
