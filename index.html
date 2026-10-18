@@ -79,6 +79,7 @@ img{max-width:100%;display:block}
   transition:.25s;position:relative;
 }
 .nav-links a:hover{color:var(--txt);background:rgba(6,35,29,.06)}
+.nav-links a.on{color:#0d9488;background:rgba(20,184,166,.1);font-weight:600}
 .nav-toggle{display:none;background:none;border:none;color:var(--txt);font-size:24px;cursor:pointer}
 
 /* ============ 通用 ============ */
@@ -407,6 +408,118 @@ footer a{color:#0d9488}
   0%{transform:scale(.4);opacity:1}
   100%{transform:scale(5.5);opacity:0}
 }
+
+/* ============ 套娃式视图路由 ============ */
+.view{display:none}
+.view.active{display:block;animation:viewIn .45s ease}
+@keyframes viewIn{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+.back-bar{
+  display:flex;justify-content:flex-start;margin-bottom:8px;
+}
+.back-btn{
+  display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border-radius:12px;
+  background:var(--card);border:1px solid var(--card-bd);color:var(--txt-dim);
+  font-size:14px;font-weight:600;transition:.25s;
+}
+.back-btn:hover{color:var(--txt);border-color:var(--teal);transform:translateX(-4px)}
+
+/* 首页板块入口 */
+.hub{
+  max-width:1080px;margin:0 auto;padding:10px 0 40px;
+}
+.hub-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:22px}
+.hub-card{
+  position:relative;display:flex;flex-direction:column;gap:14px;
+  padding:34px 28px;border-radius:22px;overflow:hidden;
+  background:var(--card);border:1px solid var(--card-bd);
+  transition:.3s;color:var(--txt);
+}
+.hub-card::before{
+  content:'';position:absolute;inset:0;
+  background:var(--grad-soft);opacity:0;transition:.3s;
+}
+.hub-card:hover{transform:translateY(-6px);border-color:var(--teal);box-shadow:0 24px 50px -18px rgba(20,184,166,.35)}
+.hub-card:hover::before{opacity:1}
+.hub-card>*{position:relative}
+.hub-ico{
+  width:56px;height:56px;border-radius:16px;display:grid;place-items:center;
+  font-size:26px;background:var(--grad-soft);
+}
+.hub-card h3{font-size:19px;font-weight:700}
+.hub-card p{font-size:13.5px;color:var(--txt-dim);line-height:1.7}
+.hub-go{
+  margin-top:auto;font-size:13px;font-weight:700;color:#0d9488;
+  display:flex;align-items:center;gap:6px;
+}
+.hub-card.hub-wide{grid-column:span 2}
+@media (max-width:640px){.hub-card.hub-wide{grid-column:span 1}}
+
+/* ============ 留言墙 ============ */
+.gb-wrap{max-width:860px;margin:0 auto}
+.gb-form{
+  padding:30px;border-radius:22px;background:var(--card);
+  border:1px solid var(--card-bd);margin-bottom:34px;
+}
+.gb-form h3{font-size:18px;font-weight:700;margin-bottom:18px}
+.gb-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+@media (max-width:640px){.gb-row{grid-template-columns:1fr}}
+.gb-input{
+  width:100%;padding:13px 16px;border-radius:12px;font-size:14px;
+  border:1px solid var(--card-bd);background:rgba(6,35,29,.03);
+  color:var(--txt);font-family:inherit;transition:.2s;
+}
+.gb-input:focus{outline:none;border-color:var(--teal);background:#fff}
+.gb-input::placeholder{color:var(--txt-dim)}
+textarea.gb-input{resize:vertical;min-height:96px}
+.gb-tip{font-size:12px;color:var(--txt-dim);margin-top:10px;line-height:1.7}
+.gb-btn{
+  display:inline-flex;align-items:center;gap:8px;padding:12px 26px;border-radius:12px;
+  background:var(--grad);color:#fff;font-weight:600;font-size:14px;
+  border:none;cursor:pointer;transition:.25s;margin-top:14px;
+}
+.gb-btn:hover{transform:translateY(-2px);box-shadow:0 14px 30px -10px rgba(20,184,166,.5)}
+.gb-list{display:flex;flex-direction:column;gap:16px}
+.gb-item{
+  padding:22px 24px;border-radius:18px;background:var(--card);
+  border:1px solid var(--card-bd);position:relative;
+  animation:viewIn .4s ease;
+}
+.gb-head{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.gb-avatar{
+  width:38px;height:38px;border-radius:50%;display:grid;place-items:center;
+  font-weight:800;font-size:16px;color:#fff;background:var(--grad);flex-shrink:0;
+}
+.gb-name{font-weight:700;font-size:14.5px}
+.gb-time{font-size:12px;color:var(--txt-dim);margin-left:auto}
+.gb-del{
+  border:none;background:rgba(6,35,29,.05);color:var(--txt-dim);
+  width:30px;height:30px;border-radius:9px;cursor:pointer;font-size:14px;
+  transition:.2s;flex-shrink:0;
+}
+.gb-del:hover{background:rgba(244,63,94,.12);color:#e11d48}
+.gb-content{font-size:14.5px;line-height:1.8;color:var(--txt);white-space:pre-wrap;word-break:break-word}
+.gb-empty{
+  text-align:center;padding:60px 20px;color:var(--txt-dim);font-size:14px;
+  border:1.5px dashed var(--card-bd);border-radius:18px;
+}
+.gb-modal-mask{
+  position:fixed;inset:0;background:rgba(6,35,29,.45);backdrop-filter:blur(4px);
+  display:grid;place-items:center;z-index:9000;
+}
+.gb-modal{
+  width:min(360px,88vw);padding:28px;border-radius:20px;background:#fff;
+  box-shadow:var(--shadow);
+}
+.gb-modal h4{font-size:16px;margin-bottom:6px}
+.gb-modal p{font-size:13px;color:var(--txt-dim);margin-bottom:16px;line-height:1.7}
+.gb-modal-btns{display:flex;gap:10px;margin-top:16px}
+.gb-modal-btns .gb-btn{margin-top:0;flex:1;justify-content:center}
+.gb-cancel{
+  background:rgba(6,35,29,.05);color:var(--txt);
+}
+.gb-status{font-size:13px;margin-top:12px;min-height:18px}
+.gb-status.err{color:#e11d48}
+.gb-status.ok{color:#0d9488}
 </style>
 </head>
 <body>
@@ -415,24 +528,25 @@ footer a{color:#0d9488}
 
 <!-- ============ 导航 ============ -->
 <nav class="nav" id="nav">
-  <a href="#home" class="brand">
+  <a href="#/" class="brand">
     <span class="logo">L</span>
     <span>刘嘉怡</span>
   </a>
   <ul class="nav-links" id="navLinks">
-    <li><a href="#home">首页</a></li>
-    <li><a href="#about">关于</a></li>
-    <li><a href="#education">教育</a></li>
-    <li><a href="#skills">技能</a></li>
-    <li><a href="#honors">荣誉</a></li>
-    <li><a href="#gallery">风采</a></li>
-    <li><a href="#contact">联系</a></li>
+    <li><a href="#/" data-route="home">首页</a></li>
+    <li><a href="#/about" data-route="about">关于</a></li>
+    <li><a href="#/education" data-route="education">教育</a></li>
+    <li><a href="#/skills" data-route="skills">技能</a></li>
+    <li><a href="#/honors" data-route="honors">荣誉</a></li>
+    <li><a href="#/gallery" data-route="gallery">风采</a></li>
+    <li><a href="#/contact" data-route="contact">联系</a></li>
+    <li><a href="#/guestbook" data-route="guestbook">留言墙</a></li>
   </ul>
   <button class="nav-toggle" id="navToggle" aria-label="菜单">☰</button>
 </nav>
 
-<!-- ============ Hero ============ -->
-<section class="hero" id="home">
+<!-- ============ 首页(Hero + 板块入口) ============ -->
+<section class="hero view" id="home">
   <div class="hero-grid">
     <div class="hero-left">
       <span class="hero-tag reveal"><span class="dot"></span> 大一在读 · 医学实验技术专业</span>
@@ -443,8 +557,8 @@ footer a{color:#0d9488}
         同时熟练运用 Office 与 AI 工具辅助学习,保持着阅读英文文献的习惯。
       </p>
       <div class="hero-cta reveal d3">
-        <a href="#contact" class="btn btn-primary">联系我 →</a>
-        <a href="#skills" class="btn btn-ghost">查看技能</a>
+        <a href="#/guestbook" class="btn btn-primary">去留言墙 ✦</a>
+        <a href="#/about" class="btn btn-ghost">了解我 →</a>
       </div>
       <div class="hero-meta reveal d4">
         <div class="item"><div class="num">2026</div><div class="lbl">入学年级</div></div>
@@ -467,11 +581,60 @@ footer a{color:#0d9488}
       <div class="float-badge b3"><span class="ico"></span> Office 精通</div>
     </div>
   </div>
+
+  <!-- 板块入口(点击进入详情) -->
+  <div class="hub">
+    <div class="hub-grid">
+      <a class="hub-card" href="#/about">
+        <div class="hub-ico">👤</div>
+        <h3>关于我</h3>
+        <p>自我介绍与关键信息一览,认识一个真实的刘嘉怡。</p>
+        <div class="hub-go">进入板块 →</div>
+      </a>
+      <a class="hub-card" href="#/education">
+        <div class="hub-ico">🎓</div>
+        <h3>教育背景</h3>
+        <p>河南中医药大学医学院 · 医学实验技术专业 2026 级。</p>
+        <div class="hub-go">进入板块 →</div>
+      </a>
+      <a class="hub-card" href="#/skills">
+        <div class="hub-ico">🧠</div>
+        <h3>专业技能</h3>
+        <p>Office、AI 应用、文献检索,以及正在学习的专业实验技能。</p>
+        <div class="hub-go">进入板块 →</div>
+      </a>
+      <a class="hub-card" href="#/honors">
+        <div class="hub-ico">🏅</div>
+        <h3>荣誉证书</h3>
+        <p>AI 技能证书与奖项的照片墙,持续更新中。</p>
+        <div class="hub-go">进入板块 →</div>
+      </a>
+      <a class="hub-card" href="#/gallery">
+        <div class="hub-ico">📷</div>
+        <h3>个人风采</h3>
+        <p>记录学习与生活瞬间的照片墙。</p>
+        <div class="hub-go">进入板块 →</div>
+      </a>
+      <a class="hub-card" href="#/contact">
+        <div class="hub-ico">📮</div>
+        <h3>联系方式</h3>
+        <p>电话、微信、邮箱与 GitHub,欢迎交流。</p>
+        <div class="hub-go">进入板块 →</div>
+      </a>
+      <a class="hub-card hub-wide" href="#/guestbook">
+        <div class="hub-ico">✍️</div>
+        <h3>留言墙</h3>
+        <p>路过的朋友请留下足迹吧——一句话的鼓励、一个建议,或只是打个招呼。留言只有发布者和站长可以删除。</p>
+        <div class="hub-go">去留言 →</div>
+      </a>
+    </div>
+  </div>
 </section>
 
 <!-- ============ 关于 ============ -->
-<section id="about">
-  <div class="container">
+<section id="about" class="view">
+<div class="container">
+  <div class="back-bar"><a class="back-btn" href="#/">← 返回首页</a></div>
     <div class="eyebrow reveal">About Me</div>
     <h2 class="sec-title reveal d1">关于<em>我</em></h2>
     <p class="sec-sub reveal d1">一名热爱生命科学、喜欢用工具提升学习效率的医学实验技术专业大一新生。</p>
@@ -497,8 +660,9 @@ footer a{color:#0d9488}
 </section>
 
 <!-- ============ 教育 ============ -->
-<section id="education">
+<section id="education" class="view">
   <div class="container">
+  <div class="back-bar"><a class="back-btn" href="#/">← 返回首页</a></div>
     <div class="eyebrow reveal">Education</div>
     <h2 class="sec-title reveal d1">教育<em>背景</em></h2>
     <p class="sec-sub reveal d1">2026 年入学,本科四年的医学学习之路刚刚开始。</p>
@@ -522,8 +686,9 @@ footer a{color:#0d9488}
 </section>
 
 <!-- ============ 技能 ============ -->
-<section id="skills">
+<section id="skills" class="view">
   <div class="container">
+  <div class="back-bar"><a class="back-btn" href="#/">← 返回首页</a></div>
     <div class="eyebrow reveal">Skills</div>
     <h2 class="sec-title reveal d1">专业<em>技能</em></h2>
     <p class="sec-sub reveal d1">前四项为已掌握的工具与学术能力;标注"学习中"的是大一阶段正在入门的专业技能,会随课程推进持续更新。</p>
@@ -606,8 +771,9 @@ footer a{color:#0d9488}
 </section>
 
 <!-- ============ 荣誉证书 ============ -->
-<section id="honors">
+<section id="honors" class="view">
   <div class="container">
+  <div class="back-bar"><a class="back-btn" href="#/">← 返回首页</a></div>
     <div class="eyebrow reveal">Honors</div>
     <h2 class="sec-title reveal d1">荣誉<em>证书</em></h2>
     <p class="sec-sub reveal d1">AI 技能证书与其他荣誉。点击占位卡片可替换为真实证书照片。</p>
@@ -650,8 +816,9 @@ footer a{color:#0d9488}
 </section>
 
 <!-- ============ 个人风采 ============ -->
-<section id="gallery">
+<section id="gallery" class="view">
   <div class="container">
+  <div class="back-bar"><a class="back-btn" href="#/">← 返回首页</a></div>
     <div class="eyebrow reveal">Gallery</div>
     <h2 class="sec-title reveal d1">个人<em>风采</em></h2>
     <p class="sec-sub reveal d1">实验瞬间、校园生活、个人照片。占位区已为你预留。</p>
@@ -686,8 +853,9 @@ footer a{color:#0d9488}
 </section>
 
 <!-- ============ 联系 ============ -->
-<section id="contact">
+<section id="contact" class="view">
   <div class="container">
+  <div class="back-bar"><a class="back-btn" href="#/">← 返回首页</a></div>
     <div class="eyebrow reveal">Contact</div>
     <h2 class="sec-title reveal d1">联系<em>我</em></h2>
     <p class="sec-sub reveal d1">欢迎老师、学长学姐和同学与我交流学习,以下方式都可以找到我。</p>
@@ -714,9 +882,33 @@ footer a{color:#0d9488}
   </div>
 </section>
 
+<!-- ============ 留言墙 ============ -->
+<section id="guestbook" class="view">
+  <div class="container">
+  <div class="back-bar"><a class="back-btn" href="#/">← 返回首页</a></div>
+    <div class="eyebrow reveal">Guestbook</div>
+    <h2 class="sec-title reveal d1">留言<em>墙</em></h2>
+    <p class="sec-sub reveal d1">路过的朋友,欢迎留下你的足迹。留言只有发布者和站长可以删除。</p>
+    <div class="gb-wrap reveal d2">
+      <div class="gb-form">
+        <h3>✍️ 写下你的留言</h3>
+        <div class="gb-row">
+          <input class="gb-input" id="gbNick" maxlength="20" placeholder="昵称(必填,最多 20 字)">
+          <input class="gb-input" id="gbPwd" type="password" maxlength="32" placeholder="删除密码(必填,凭它可删除这条留言)">
+        </div>
+        <textarea class="gb-input" id="gbText" maxlength="300" placeholder="说点什么吧…(最多 300 字)"></textarea>
+        <div class="gb-tip">提示:留言公开可见;删除时需要输入发布时设置的昵称和密码,只有你本人和站长能删除。</div>
+        <button class="gb-btn" id="gbSubmit">发布留言</button>
+        <div class="gb-status" id="gbStatus"></div>
+      </div>
+      <div class="gb-list" id="gbList"><div class="gb-empty">加载中…</div></div>
+    </div>
+  </div>
+</section>
+
 <footer>
   <div class="up">© 2026 刘嘉怡 · 河南中医药大学医学院 · 医学实验技术</div>
-  <div>Built with care · <a href="#home">回到顶部 ↑</a></div>
+  <div>Built with care · <a href="#/">回到顶部 ↑</a></div>
 </footer>
 
 <script>
@@ -863,6 +1055,178 @@ document.querySelectorAll('[data-ph]').forEach(card=>{
       setTimeout(()=>s.remove(),700);
     }
   });
+})();
+</script>
+
+<script>
+/* ============ 套娃式视图路由 ============ */
+(function(){
+  const VIEWS=['home','about','education','skills','honors','gallery','contact','guestbook'];
+  function route(){
+    const name=(location.hash.replace(/^#\/?/,'')||'home');
+    const cur=VIEWS.includes(name)?name:'home';
+    VIEWS.forEach(v=>{
+      const el=document.getElementById(v);
+      if(el)el.classList.toggle('active',v===cur);
+    });
+    document.querySelectorAll('[data-route]').forEach(a=>
+      a.classList.toggle('on',a.dataset.route===cur));
+    window.scrollTo(0,0);
+    if(cur==='guestbook'&&window.GB)GB.load();
+  }
+  window.addEventListener('hashchange',route);
+  route();
+})();
+</script>
+
+<script>
+/* ============ 留言墙(LeanCloud)============
+   配置方法:
+   1. 注册 LeanCloud:https://console.lc-leancloud.app (国际版,免费)
+   2. 创建应用 → 左下角"设置" → "应用凭证"
+   3. 把 AppID、AppKey、REST API 服务器地址 填到下面三个引号里
+   4. 站长删除口令可自行修改(它同时是你在留言墙上删任意留言的口令)
+================================================== */
+var LC_CONFIG={
+  appId :'REPLACE_WITH_APP_ID',
+  appKey:'REPLACE_WITH_APP_KEY',
+  server:''   /* 留空则自动按国际版规则生成;国内版请粘贴控制台里的 REST API 服务器地址 */
+};
+var ADMIN_PASS='liujiayi2026'; /* 站长口令:在删除弹窗里勾选"我是站长"时使用 */
+
+(function(){
+  function hash(str){
+    var h1=5381,h2=52711,i;
+    for(i=0;i<str.length;i++){
+      var c=str.charCodeAt(i);
+      h1=(h1*33^c)>>>0; h2=(h2*31+c*7)>>>0;
+    }
+    return h1.toString(36)+'_'+h2.toString(36);
+  }
+  function apiBase(){
+    if(LC_CONFIG.server)return LC_CONFIG.server.replace(/\/$/,'');
+    return 'https://'+LC_CONFIG.appId.slice(0,8).toLowerCase()+'.api.lncldglobal.com';
+  }
+  function headers(){
+    return {'X-LC-Id':LC_CONFIG.appId,'X-LC-Key':LC_CONFIG.appKey,'Content-Type':'application/json'};
+  }
+  function ready(){
+    return LC_CONFIG.appId.indexOf('REPLACE')!==0 && LC_CONFIG.appKey.indexOf('REPLACE')!==0;
+  }
+  function esc(s){var d=document.createElement('div');d.textContent=s;return d.innerHTML}
+  function fmt(iso){
+    var d=new Date(iso);
+    var p=n=>(n<10?'0':'')+n;
+    return d.getFullYear()+'-'+p(d.getMonth()+1)+'-'+p(d.getDate())+' '+p(d.getHours())+':'+p(d.getMinutes());
+  }
+  var listEl=document.getElementById('gbList');
+
+  function status(msg,cls){
+    var s=document.getElementById('gbStatus');
+    s.textContent=msg;s.className='gb-status '+(cls||'');
+    setTimeout(()=>{s.textContent=''},4000);
+  }
+
+  window.GB={};
+
+  GB.load=function(){
+    if(!ready()){
+      listEl.innerHTML='<div class="gb-empty">留言墙暂未开通<br><br>站长需要先注册 LeanCloud 并把凭证填入 index.html 的 LC_CONFIG<br>详情见网站部署说明</div>';
+      return;
+    }
+    fetch(apiBase()+'/1.1/classes/Message?limit=50&order=-createdAt',{headers:headers()})
+      .then(r=>r.json())
+      .then(data=>{
+        if(!data.results||!data.results.length){
+          listEl.innerHTML='<div class="gb-empty">还没有留言,来做第一个留言的人吧 ✨</div>';
+          return;
+        }
+        listEl.innerHTML='';
+        data.results.forEach(m=>{
+          var item=document.createElement('div');
+          item.className='gb-item';
+          item.innerHTML=
+            '<div class="gb-head">'+
+              '<div class="gb-avatar">'+esc((m.nick||'?').slice(0,1).toUpperCase())+'</div>'+
+              '<div class="gb-name">'+esc(m.nick||'匿名')+'</div>'+
+              '<div class="gb-time">'+fmt(m.createdAt)+'</div>'+
+              '<button class="gb-del" title="删除这条留言">✕</button>'+
+            '</div>'+
+            '<div class="gb-content"></div>';
+          item.querySelector('.gb-content').textContent=m.content;
+          item.querySelector('.gb-del').addEventListener('click',()=>askDelete(m));
+          listEl.appendChild(item);
+        });
+      })
+      .catch(()=>{listEl.innerHTML='<div class="gb-empty">留言加载失败,请稍后再试</div>'});
+  };
+
+  GB.submit=function(){
+    if(!ready()){status('留言墙尚未配置,请联系站长','err');return}
+    var nick=document.getElementById('gbNick').value.trim();
+    var pwd=document.getElementById('gbPwd').value;
+    var text=document.getElementById('gbText').value.trim();
+    if(!nick){status('请填写昵称','err');return}
+    if(!pwd||pwd.length<4){status('请设置至少 4 位的删除密码','err');return}
+    if(!text){status('留言内容不能为空','err');return}
+    var btn=document.getElementById('gbSubmit');
+    btn.disabled=true;btn.textContent='发布中…';
+    fetch(apiBase()+'/1.1/classes/Message',{
+      method:'POST',headers:headers(),
+      body:JSON.stringify({nick:nick,content:text,pwdHash:hash(pwd)})
+    }).then(r=>{
+      btn.disabled=false;btn.textContent='发布留言';
+      if(!r.ok)throw 0;
+      document.getElementById('gbNick').value='';
+      document.getElementById('gbPwd').value='';
+      document.getElementById('gbText').value='';
+      status('发布成功!','ok');
+      GB.load();
+    }).catch(()=>{btn.disabled=false;btn.textContent='发布留言';status('发布失败,请稍后再试','err')});
+  };
+  document.getElementById('gbSubmit').addEventListener('click',GB.submit);
+
+  /* 删除:弹窗输入昵称+密码(发布者)或站长口令 */
+  function askDelete(m){
+    var mask=document.createElement('div');
+    mask.className='gb-modal-mask';
+    mask.innerHTML=
+      '<div class="gb-modal">'+
+        '<h4>删除留言</h4>'+
+        '<p>输入<b>发布时</b>设置的昵称与删除密码,或勾选"我是站长"输入站长口令。</p>'+
+        '<input class="gb-input" id="delNick" placeholder="发布者昵称">'+
+        '<div style="height:10px"></div>'+
+        '<input class="gb-input" id="delPwd" type="password" placeholder="删除密码">'+
+        '<label style="display:flex;gap:8px;align-items:center;margin-top:12px;font-size:13px;color:var(--txt-dim)">'+
+          '<input type="checkbox" id="delAdmin"> 我是站长(输入站长口令即可删除)</label>'+
+        '<div class="gb-modal-btns">'+
+          '<button class="gb-btn gb-cancel">取消</button>'+
+          '<button class="gb-btn" id="delGo">确认删除</button>'+
+        '</div>'+
+        '<div class="gb-status" id="delStatus"></div>'+
+      '</div>';
+    document.body.appendChild(mask);
+    mask.querySelector('.gb-cancel').addEventListener('click',()=>mask.remove());
+    mask.addEventListener('click',e=>{if(e.target===mask)mask.remove()});
+    mask.querySelector('#delAdmin').addEventListener('change',e=>{
+      mask.querySelector('#delNick').disabled=e.target.checked;
+    });
+    mask.querySelector('#delGo').addEventListener('click',()=>{
+      var st=mask.querySelector('#delStatus');
+      var isAdmin=mask.querySelector('#delAdmin').checked;
+      var nick=mask.querySelector('#delNick').value.trim();
+      var pwd=mask.querySelector('#delPwd').value;
+      var ok=isAdmin?(pwd===ADMIN_PASS):(nick===m.nick&&pwd&&hash(pwd)===m.pwdHash);
+      if(!ok){st.textContent='昵称或密码不正确,无法删除';st.className='gb-status err';return}
+      st.textContent='删除中…';st.className='gb-status';
+      fetch(apiBase()+'/1.1/classes/Message/'+m.objectId,{method:'DELETE',headers:headers()})
+        .then(r=>{
+          if(!r.ok)throw 0;
+          mask.remove();GB.load();
+        })
+        .catch(()=>{st.textContent='删除失败,请稍后再试';st.className='gb-status err'});
+    });
+  }
 })();
 </script>
 </body>
