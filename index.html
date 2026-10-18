@@ -882,26 +882,19 @@ textarea.gb-input{resize:vertical;min-height:96px}
   </div>
 </section>
 
-<!-- ============ 留言墙 ============ -->
+<!-- ============ 留言墙(Giscus) ============ -->
 <section id="guestbook" class="view">
   <div class="container">
   <div class="back-bar"><a class="back-btn" href="#/">← 返回首页</a></div>
     <div class="eyebrow reveal">Guestbook</div>
     <h2 class="sec-title reveal d1">留言<em>墙</em></h2>
-    <p class="sec-sub reveal d1">路过的朋友,欢迎留下你的足迹。留言只有发布者和站长可以删除。</p>
+    <p class="sec-sub reveal d1">路过的朋友,欢迎留下你的足迹。留言基于 GitHub 讨论区:发布者可删除自己的留言,站长可删除任何留言。</p>
     <div class="gb-wrap reveal d2">
       <div class="gb-form">
-        <h3>✍️ 写下你的留言</h3>
-        <div class="gb-row">
-          <input class="gb-input" id="gbNick" maxlength="20" placeholder="昵称(必填,最多 20 字)">
-          <input class="gb-input" id="gbPwd" type="password" maxlength="32" placeholder="删除密码(必填,凭它可删除这条留言)">
-        </div>
-        <textarea class="gb-input" id="gbText" maxlength="300" placeholder="说点什么吧…(最多 300 字)"></textarea>
-        <div class="gb-tip">提示:留言公开可见;删除时需要输入发布时设置的昵称和密码,只有你本人和站长能删除。</div>
-        <button class="gb-btn" id="gbSubmit">发布留言</button>
-        <div class="gb-status" id="gbStatus"></div>
+        <h3>✍️ 如何留言</h3>
+        <div class="gb-tip">首次留言需登录 GitHub 账号(点击下方输入框按提示授权即可,免费注册);留言后可随时编辑或删除自己的留言。</div>
       </div>
-      <div class="gb-list" id="gbList"><div class="gb-empty">加载中…</div></div>
+      <div id="giscusBox"></div>
     </div>
   </div>
 </section>
@@ -1080,153 +1073,31 @@ document.querySelectorAll('[data-ph]').forEach(card=>{
 </script>
 
 <script>
-/* ============ 留言墙(LeanCloud)============
-   配置方法:
-   1. 注册 LeanCloud:https://console.lc-leancloud.app (国际版,免费)
-   2. 创建应用 → 左下角"设置" → "应用凭证"
-   3. 把 AppID、AppKey、REST API 服务器地址 填到下面三个引号里
-   4. 站长删除口令可自行修改(它同时是你在留言墙上删任意留言的口令)
-================================================== */
-var LC_CONFIG={
-  appId :'REPLACE_WITH_APP_ID',
-  appKey:'REPLACE_WITH_APP_KEY',
-  server:''   /* 留空则自动按国际版规则生成;国内版请粘贴控制台里的 REST API 服务器地址 */
-};
-var ADMIN_PASS='liujiayi2026'; /* 站长口令:在删除弹窗里勾选"我是站长"时使用 */
-
+/* ============ 留言墙(giscus,基于 GitHub Discussions)============
+   权限:发布者可编辑/删除自己的留言;站长(仓库主人)可在 GitHub 删除任何留言。
+   管理入口:https://github.com/cloud1104/cloud1104.github.io/discussions
+================================================================== */
 (function(){
-  function hash(str){
-    var h1=5381,h2=52711,i;
-    for(i=0;i<str.length;i++){
-      var c=str.charCodeAt(i);
-      h1=(h1*33^c)>>>0; h2=(h2*31+c*7)>>>0;
-    }
-    return h1.toString(36)+'_'+h2.toString(36);
-  }
-  function apiBase(){
-    if(LC_CONFIG.server)return LC_CONFIG.server.replace(/\/$/,'');
-    return 'https://'+LC_CONFIG.appId.slice(0,8).toLowerCase()+'.api.lncldglobal.com';
-  }
-  function headers(){
-    return {'X-LC-Id':LC_CONFIG.appId,'X-LC-Key':LC_CONFIG.appKey,'Content-Type':'application/json'};
-  }
-  function ready(){
-    return LC_CONFIG.appId.indexOf('REPLACE')!==0 && LC_CONFIG.appKey.indexOf('REPLACE')!==0;
-  }
-  function esc(s){var d=document.createElement('div');d.textContent=s;return d.innerHTML}
-  function fmt(iso){
-    var d=new Date(iso);
-    var p=n=>(n<10?'0':'')+n;
-    return d.getFullYear()+'-'+p(d.getMonth()+1)+'-'+p(d.getDate())+' '+p(d.getHours())+':'+p(d.getMinutes());
-  }
-  var listEl=document.getElementById('gbList');
-
-  function status(msg,cls){
-    var s=document.getElementById('gbStatus');
-    s.textContent=msg;s.className='gb-status '+(cls||'');
-    setTimeout(()=>{s.textContent=''},4000);
-  }
-
-  window.GB={};
-
-  GB.load=function(){
-    if(!ready()){
-      listEl.innerHTML='<div class="gb-empty">留言墙暂未开通<br><br>站长需要先注册 LeanCloud 并把凭证填入 index.html 的 LC_CONFIG<br>详情见网站部署说明</div>';
-      return;
-    }
-    fetch(apiBase()+'/1.1/classes/Message?limit=50&order=-createdAt',{headers:headers()})
-      .then(r=>r.json())
-      .then(data=>{
-        if(!data.results||!data.results.length){
-          listEl.innerHTML='<div class="gb-empty">还没有留言,来做第一个留言的人吧 ✨</div>';
-          return;
-        }
-        listEl.innerHTML='';
-        data.results.forEach(m=>{
-          var item=document.createElement('div');
-          item.className='gb-item';
-          item.innerHTML=
-            '<div class="gb-head">'+
-              '<div class="gb-avatar">'+esc((m.nick||'?').slice(0,1).toUpperCase())+'</div>'+
-              '<div class="gb-name">'+esc(m.nick||'匿名')+'</div>'+
-              '<div class="gb-time">'+fmt(m.createdAt)+'</div>'+
-              '<button class="gb-del" title="删除这条留言">✕</button>'+
-            '</div>'+
-            '<div class="gb-content"></div>';
-          item.querySelector('.gb-content').textContent=m.content;
-          item.querySelector('.gb-del').addEventListener('click',()=>askDelete(m));
-          listEl.appendChild(item);
-        });
-      })
-      .catch(()=>{listEl.innerHTML='<div class="gb-empty">留言加载失败,请稍后再试</div>'});
-  };
-
-  GB.submit=function(){
-    if(!ready()){status('留言墙尚未配置,请联系站长','err');return}
-    var nick=document.getElementById('gbNick').value.trim();
-    var pwd=document.getElementById('gbPwd').value;
-    var text=document.getElementById('gbText').value.trim();
-    if(!nick){status('请填写昵称','err');return}
-    if(!pwd||pwd.length<4){status('请设置至少 4 位的删除密码','err');return}
-    if(!text){status('留言内容不能为空','err');return}
-    var btn=document.getElementById('gbSubmit');
-    btn.disabled=true;btn.textContent='发布中…';
-    fetch(apiBase()+'/1.1/classes/Message',{
-      method:'POST',headers:headers(),
-      body:JSON.stringify({nick:nick,content:text,pwdHash:hash(pwd)})
-    }).then(r=>{
-      btn.disabled=false;btn.textContent='发布留言';
-      if(!r.ok)throw 0;
-      document.getElementById('gbNick').value='';
-      document.getElementById('gbPwd').value='';
-      document.getElementById('gbText').value='';
-      status('发布成功!','ok');
-      GB.load();
-    }).catch(()=>{btn.disabled=false;btn.textContent='发布留言';status('发布失败,请稍后再试','err')});
-  };
-  document.getElementById('gbSubmit').addEventListener('click',GB.submit);
-
-  /* 删除:弹窗输入昵称+密码(发布者)或站长口令 */
-  function askDelete(m){
-    var mask=document.createElement('div');
-    mask.className='gb-modal-mask';
-    mask.innerHTML=
-      '<div class="gb-modal">'+
-        '<h4>删除留言</h4>'+
-        '<p>输入<b>发布时</b>设置的昵称与删除密码,或勾选"我是站长"输入站长口令。</p>'+
-        '<input class="gb-input" id="delNick" placeholder="发布者昵称">'+
-        '<div style="height:10px"></div>'+
-        '<input class="gb-input" id="delPwd" type="password" placeholder="删除密码">'+
-        '<label style="display:flex;gap:8px;align-items:center;margin-top:12px;font-size:13px;color:var(--txt-dim)">'+
-          '<input type="checkbox" id="delAdmin"> 我是站长(输入站长口令即可删除)</label>'+
-        '<div class="gb-modal-btns">'+
-          '<button class="gb-btn gb-cancel">取消</button>'+
-          '<button class="gb-btn" id="delGo">确认删除</button>'+
-        '</div>'+
-        '<div class="gb-status" id="delStatus"></div>'+
-      '</div>';
-    document.body.appendChild(mask);
-    mask.querySelector('.gb-cancel').addEventListener('click',()=>mask.remove());
-    mask.addEventListener('click',e=>{if(e.target===mask)mask.remove()});
-    mask.querySelector('#delAdmin').addEventListener('change',e=>{
-      mask.querySelector('#delNick').disabled=e.target.checked;
-    });
-    mask.querySelector('#delGo').addEventListener('click',()=>{
-      var st=mask.querySelector('#delStatus');
-      var isAdmin=mask.querySelector('#delAdmin').checked;
-      var nick=mask.querySelector('#delNick').value.trim();
-      var pwd=mask.querySelector('#delPwd').value;
-      var ok=isAdmin?(pwd===ADMIN_PASS):(nick===m.nick&&pwd&&hash(pwd)===m.pwdHash);
-      if(!ok){st.textContent='昵称或密码不正确,无法删除';st.className='gb-status err';return}
-      st.textContent='删除中…';st.className='gb-status';
-      fetch(apiBase()+'/1.1/classes/Message/'+m.objectId,{method:'DELETE',headers:headers()})
-        .then(r=>{
-          if(!r.ok)throw 0;
-          mask.remove();GB.load();
-        })
-        .catch(()=>{st.textContent='删除失败,请稍后再试';st.className='gb-status err'});
-    });
-  }
+  var box=document.getElementById('giscusBox');
+  if(!box)return;
+  var s=document.createElement('script');
+  s.src='https://giscus.app/client.js';
+  s.setAttribute('data-repo','cloud1104/cloud1104.github.io');
+  s.setAttribute('data-repo-id','R_kgDOUc3ugQ');
+  s.setAttribute('data-category','General');
+  s.setAttribute('data-category-id','DIC_kwDOUc3ugc4DI2nc');
+  s.setAttribute('data-mapping','specific');
+  s.setAttribute('data-term','guestbook');
+  s.setAttribute('data-strict','1');
+  s.setAttribute('data-reactions-enabled','1');
+  s.setAttribute('data-emit-metadata','0');
+  s.setAttribute('data-input-position','top');
+  s.setAttribute('data-theme','light');
+  s.setAttribute('data-lang','zh-CN');
+  s.setAttribute('data-loading','lazy');
+  s.crossOrigin='anonymous';
+  s.async=true;
+  box.appendChild(s);
 })();
 </script>
 </body>
